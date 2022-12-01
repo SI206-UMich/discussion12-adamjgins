@@ -16,7 +16,10 @@ def setUpDatabase(db_name):
 # TASK 1
 # CREATE TABLE FOR EMPLOYEE INFORMATION IN DATABASE AND ADD INFORMATION
 def create_employee_table(cur, conn):
-    pass
+    cur.execute("CREATE TABLE IF NOT EXISTS employees (id INTEGER PRIMARY KEY, first_name TEXT,last_name TEXT,job_id INTEGER,hire_date TEXT,salary INTEGER)")
+    conn.commit()
+
+  
 
 # ADD EMPLOYEE'S INFORMTION TO THE TABLE
 
@@ -24,22 +27,43 @@ def add_employee(filename, cur, conn):
     #load .json file and read job data
     # WE GAVE YOU THIS TO READ IN DATA
     f = open(os.path.abspath(os.path.join(os.path.dirname(__file__), filename)))
-    file_data = f.read()
-    f.close()
+    file_data = json.load(f)
+
+    
+
+    for i in file_data:
+            print(i)
+
+            cur.execute("INSERT INTO employees (id,first_name,last_name,job_id,hire_date,salary) VALUES (?,?,?,?,?,?)",(i["employee_id"],i["first_name"],i["last_name"],i["hire_date"],i['job_id'],i['salary']))
+
+        
+        #cur.execute("INSERT INTO employee_information (id,title) VALUES (?,?)",(i,species[i]))
+    conn.commit()
     # THE REST IS UP TO YOU
     pass
 
 # TASK 2: GET JOB AND HIRE_DATE INFORMATION
 def job_and_hire_date(cur, conn):
+
+    j = cur.execute("SELECT job_id FROM employees")
+    print(j)
+
     pass
 
 # TASK 3: IDENTIFY PROBLEMATIC SALARY DATA
 # Apply JOIN clause to match individual employees
 def problematic_salary(cur, conn):
+   salarys =  curr.("SELECT salary FROM employees")
+    for salary in salarys: 
+        if salary not in range (min - max)
+
+
+
     pass
 
 # TASK 4: VISUALIZATION
 def visualization_salary_data(cur, conn):
+    plt.scatter(x, y)
     pass
 
 class TestDiscussion12(unittest.TestCase):
